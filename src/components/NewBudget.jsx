@@ -16,8 +16,8 @@ const NewBudget = ({ budget, setBudget, setIsValidBudget }) => {
        setBudget(0)
        return
     }
-    else if (Number(budget) < 1000) {
-      setMessage('El Prsupuesto debe ser menor o igual a $1.000')
+    else if (Number(budget) <= 0) {
+      setMessage('El Prsupuesto no puede ser menor o igual a 0')
       setBudget(0)      
       return 
     }
@@ -34,11 +34,10 @@ const NewBudget = ({ budget, setBudget, setIsValidBudget }) => {
             <label htmlFor="presupuesto">Definir Presupuesto</label>
             <input 
               className="nuevo-presupuesto"
-              type="number"
-              placeholder="Añade tu Presupuesto"
+              type="number"           
               value={budget}
               onChange={ e => setBudget(Number(e.target.value)) }
-              min="1000"           
+              min="0"           
               required
             />
           </div>

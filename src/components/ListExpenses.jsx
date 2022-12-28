@@ -1,6 +1,6 @@
 import { Expense } from "../shared/Expense"
 
-const ListExpenses = ({ expenses }) => {
+const ListExpenses = ({ expenses, setEditExpense, deleteExpense }) => {
    
   return (
     <div className="listado-gastos contenedor">
@@ -8,8 +8,10 @@ const ListExpenses = ({ expenses }) => {
 
         { expenses.map(expense => (
             <Expense 
-                id={expense.id}
+                key={expense.id}
                 expense={expense}
+                setEditExpense={setEditExpense}
+                deleteExpense={deleteExpense}
             />
         ))}
     </div>

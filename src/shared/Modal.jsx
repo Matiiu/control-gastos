@@ -1,13 +1,33 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { Message } from "./Message"
 
-const Modal = ({ setModal,  animateModal, setAnimateModal, saveExpense }) => {
+const Modal = ({ 
+    setModal,  
+    animateModal, 
+    setAnimateModal, 
+    saveExpense, 
+    editExpense
+   
+}) => {    
     const [message, setMessage] = useState('')
 
     const [name, setName] = useState('')
     const [amount, setAmount] = useState('')
     const [category, setCategory] = useState('')
+    const [date, setDate] = useState('')
+    const [id, setId] = useState('')
+
+    useEffect(() => {
+
+        if(Object.keys(editExpense).length > 0) {
+            setName(editExpense.name)
+            setAmount(editExpense.amount)
+            setCategory(editExpense.category)
+            setId(editExpense.id)
+            setDate(editExpense.date)       
+        }            
+    }, [])
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -17,11 +37,12 @@ const Modal = ({ setModal,  animateModal, setAnimateModal, saveExpense }) => {
             setTimeout(() => setMessage(''), 3000)
             return              
         }  
-        else if (amount <= 1000) {
+        else if (amount < 0) {
             setMessage('El valor no puede ser menor a $1000 COP')
+            return      
         }
 
-        saveExpense({ name, amount, category })
+        saveExpense({ name, amount, category, id, date })
         setModal(false)
         setAnimateModal(false)
     }  
@@ -32,7 +53,7 @@ const Modal = ({ setModal,  animateModal, setAnimateModal, saveExpense }) => {
             className={`formulario ${animateModal ? "animar" : "cerrar"}`}
             onSubmit={handleSubmit}
             >
-            <legend>Nuevo Gasto</legend>
+            <legend>{ editExpense.name ? 'Editar Gasto' : 'Nuevo Gasto' }</legend>
 
             { message && <Message tipo="error">{message}</Message> }
 
@@ -54,7 +75,8 @@ const Modal = ({ setModal,  animateModal, setAnimateModal, saveExpense }) => {
                     type="number" 
                     name="amount" 
                     id="amount"
-                    min="1000"
+                    min="0"
+                    placeholder="Ingrese el Valor del Gasto"
                     value={amount}
                     onChange={ e => setAmount(Number(e.target.value)) }
                 />                
@@ -78,7 +100,10 @@ const Modal = ({ setModal,  animateModal, setAnimateModal, saveExpense }) => {
                </select>
             </div> 
 
-            <input type="submit" value="Añadir Campo" />
+            <input 
+                type="submit" 
+                value={ editExpense.name ? 'Guardar Cambios' : 'Añadir Gasto' } 
+            />
         </form>  
     </div>  
   )

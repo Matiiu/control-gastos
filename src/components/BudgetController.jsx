@@ -9,10 +9,9 @@ const BudgetController = ({ budget, expenses }) => {
 
 
   useEffect(() => {
-    const totalSpent = expenses.reduce((tot, curr) => curr.amount + tot, 0)
+    const totalSpent = expenses.reduce((tot, curr) => curr.amount + tot, 0)      
+    setAvailable(budget - totalSpent)    
     setSpent(totalSpent)
-    setAvailable(available - totalSpent)    
-
   }, [expenses])
 
   return (
