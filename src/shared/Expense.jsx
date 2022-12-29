@@ -73,7 +73,7 @@ const Expense = ({ expense, setEditExpense, deleteExpense }) => {
             </div>
 
           </div>   
-          <p className="cantidad-gasto">${ formatAmount(expense.amount) }</p>
+          <p className="cantidad-gasto">{ formatAmount(expense.amount) }</p>
         </div>
       </SwipeableListItem> 
     </SwipeableList>

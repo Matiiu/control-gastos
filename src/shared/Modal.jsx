@@ -7,8 +7,8 @@ const Modal = ({
     animateModal, 
     setAnimateModal, 
     saveExpense, 
-    editExpense
-   
+    editExpense,
+    setEditExpense   
 }) => {    
     const [message, setMessage] = useState('')
 
@@ -44,6 +44,7 @@ const Modal = ({
 
         saveExpense({ name, amount, category, id, date })
         setModal(false)
+        setEditExpense({})
         setAnimateModal(false)
     }  
 

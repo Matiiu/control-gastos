@@ -5,9 +5,9 @@ export const generateId = () => {
 } 
 
 export const formatAmount = amount => {
-    return amount.toLocaleString('es', {
+    return amount.toLocaleString('En-US', {
       style: 'currency',
-      currency: 'COP'
+      currency: 'USD'
     })
   }
 

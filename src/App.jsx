@@ -7,14 +7,35 @@ import { ListExpenses } from "./components/ListExpenses"
 
 import NewIconBudget from "./img/nuevo-gasto.svg"
 
-
 function App() {
-  const [expenses, setExpenses] = useState([])  
-  const [budget, setBudget] = useState(0)
+  const [expenses, setExpenses] = useState(
+    localStorage.getItem('expenses') ? JSON.parse(localStorage.getItem('expenses')) : []
+  )  
+  const [budget, setBudget] = useState(
+    Number(localStorage.getItem('budget')) ?? 0 
+  )
   const [isValidBudget, setIsValidBudget] = useState(false)
   const [modal, setModal] = useState(false)
   const [animateModal, setAnimateModal] = useState(false)
   const [editExpense, setEditExpense] = useState({})
+
+  useEffect(() => {
+    localStorage.setItem('budget', budget ?? 0)
+  }, [budget])  
+
+  useEffect(() => {
+    localStorage.setItem('expenses', JSON.stringify(expenses) ?? [])
+  }, [expenses])
+
+  useEffect(() => {  
+    const budgetLS = Number(localStorage.getItem('budget')) ?? 0
+    if (budgetLS > 0)
+      setIsValidBudget(true)
+  }, []) 
+
+ 
+
+  
   
 
   useEffect(() => {
@@ -36,12 +57,12 @@ function App() {
     if (expense.id) {
       const updateExpense = expenses.map(expenseState => expenseState.id === expense.id ? expense : expenseState)
       setExpenses(updateExpense)   
-      
-    } else {
-      expense.id = generateId()
-      expense.date = Date.now()
-      setExpenses([ ...expenses, expense ])
-    }  
+      setEditExpense({}) 
+      return     
+    } 
+    expense.id = generateId()
+    expense.date = Date.now()
+    setExpenses([ ...expenses, expense ])    
   }
 
   const deleteExpense = id => {
@@ -87,7 +108,8 @@ function App() {
               setAnimateModal={setAnimateModal}     
               animateModal={animateModal}   
               saveExpense={saveExpense}     
-              editExpense={editExpense}      
+              editExpense={editExpense} 
+              setEditExpense={setEditExpense}     
             />
         }
 

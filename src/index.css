@@ -148,8 +148,8 @@ header h1 {
 
 
 .contenedor {
-    width: 90%;
-    max-width: 80rem;
+    width: 95%;
+    max-width: 95rem;
     margin: 0 auto;
 }
 .contenedor-presupuesto {
@@ -164,9 +164,7 @@ header h1 {
 .dos-columnas {
     flex-direction: column;
 }
-.dos-columnas :first-child {
-    margin-bottom: 4rem;
-}
+
 @media (min-width: 768px) {
     .dos-columnas {
         flex-direction: row;
@@ -176,9 +174,7 @@ header h1 {
     .dos-columnas > div {
         width: 50%;
     }
-    .dos-columnas :first-child {
-        margin-bottom: 0;
-    }
+   
 }
 .formulario input[type="text"].nuevo-presupuesto, 
 .formulario input[type="number"].nuevo-presupuesto {
@@ -192,18 +188,16 @@ header h1 {
 
 .contenido-presupuesto {
     width: 100%;
+   
 }
 .contenido-presupuesto p {
     font-weight: 400;
     color: var(--gris-oscuro);
     font-size: 2.4rem;
-    text-align: center;
+    text-align: left;
+  
 }
-@media (min-width: 768px) {
-    .contenido-presupuesto p {
-        text-align: left;
-    }
-}
+
 .contenido-presupuesto p.negativo,
 .contenido-presupuesto p.negativo span {
     color: #DC2626;
