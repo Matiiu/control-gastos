@@ -62,6 +62,7 @@ const Expense = ({ expense, setEditExpense, deleteExpense }) => {
           <div className="contenido-gasto">
             <img 
               src={iconDictionary[expense.category]}
+              alt="Icon/Category"
             />
             <div className="descripcion-gasto">
               <p className="categoria">{expense.category}</p>

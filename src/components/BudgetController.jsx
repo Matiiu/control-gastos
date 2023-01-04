@@ -29,7 +29,7 @@ const BudgetController = ({ budget, expenses }) => {
           styles={buildStyles({
             pathColor: percentage < 50 ? '#3B82F6'  : percentage >= 50 && percentage < 80 ? '#e04c11'  : '#d62626',
             trailColor: '#F5F5F5',
-            textColor: '#3B82F6'
+            textColor: percentage < 50 ? '#3B82F6'  : percentage >= 50 && percentage < 80 ? '#e04c11'  : '#d62626'
           })}
         />
       </div>

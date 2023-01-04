@@ -4,6 +4,7 @@ import { Header } from "./components/Header"
 import { Modal } from "./shared/Modal"
 import { generateId } from "./helpers"
 import { ListExpenses } from "./components/ListExpenses"
+import { Filter } from "./shared/Filter"
 
 import NewIconBudget from "./img/nuevo-gasto.svg"
 
@@ -18,6 +19,8 @@ function App() {
   const [modal, setModal] = useState(false)
   const [animateModal, setAnimateModal] = useState(false)
   const [editExpense, setEditExpense] = useState({})
+  const [filter, setFilter] = useState('')
+  const [filterExpenses, setFilterExpenses] = useState([])
 
   useEffect(() => {
     localStorage.setItem('budget', budget ?? 0)
@@ -33,13 +36,16 @@ function App() {
       setIsValidBudget(true)
   }, []) 
 
- 
-
-  
-  
+  useEffect(() => {
+    if (filter) {
+       const filters = expenses.filter(expense => expense.category === filter)         
+       setFilterExpenses(filters)
+       return
+    }     
+    setFilterExpenses([])    
+  }, [filter])  
 
   useEffect(() => {
-
     if (Object.keys(editExpense).length > 0) {
       setModal(true)   
       setTimeout(() => setAnimateModal(true), 100)  
@@ -56,7 +62,7 @@ function App() {
   const saveExpense = expense => {
     if (expense.id) {
       const updateExpense = expenses.map(expenseState => expenseState.id === expense.id ? expense : expenseState)
-      setExpenses(updateExpense)   
+      setExpenses(updateExpense)       
       setEditExpense({}) 
       return     
     } 
@@ -85,10 +91,17 @@ function App() {
         { isValidBudget && (
             <> 
               <main>
+                <Filter 
+                filter={filter}
+                setFilter={setFilter}
+                />
+
                 <ListExpenses 
                   expenses={expenses}
                   setEditExpense={setEditExpense}
                   deleteExpense={deleteExpense}
+                  filter={filter}
+                  filterExpenses={filterExpenses}              
                 />
               </main>
 
